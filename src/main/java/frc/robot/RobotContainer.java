@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.CameraDefaultCommand;
+import frc.robot.commands.ChangeHingePosition;
 import frc.robot.commands.ClawDefaultCommand;
 import frc.robot.commands.ClawHingeCommand;
 import frc.robot.commands.DrivelineDefaultCommand;
@@ -101,10 +102,19 @@ public class RobotContainer {
     // DrivelineFieldOrientedModeActive = new JoystickButton(driver, 6);
 
 
-    JoystickButton HingeSwitch = new JoystickButton(operator, 5);
-    HingeSwitch.whenPressed(new ClawHingeCommand());
+    // JoystickButton HingeSwitch = new JoystickButton(operator, 5);
+    // HingeSwitch.whenPressed(new ClawHingeCommand());
 
     
+    JoystickButton inDownRetractButton = new JoystickButton(operator, 1);
+    inDownRetractButton.onTrue(new ChangeHingePosition(HingePosition.Retracted));
+
+      
+    JoystickButton inDownFloorButton = new JoystickButton(operator, 2);
+    inDownFloorButton.onTrue(new ChangeHingePosition(HingePosition.Floor));
+
+    JoystickButton inMidStraightButton = new JoystickButton(operator, 3);
+    inMidStraightButton.onTrue(new ChangeHingePosition(HingePosition.Straight));
 
 
   }

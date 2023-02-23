@@ -10,6 +10,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
+import frc.robot.enums.ExtenderPosition;
 
 public class ExtenderSubsystem extends SubsystemBase {
 
@@ -151,6 +153,18 @@ public class ExtenderSubsystem extends SubsystemBase {
       rightExtender.config_kD(0, 0);
       rightExtender.config_kF(0, 0.0012);
     }
+  }
+
+  public boolean AtDestination(){
+    if(RobotContainer.extendPos == ExtenderPosition.Extended && getPositions() > outChangePoint){
+      return true;
+    }
+
+    if(RobotContainer.extendPos == ExtenderPosition.Retracted && getPositions() < inSecondChangePoint){
+      return true;
+    }
+
+    return false;
   }
 
   @Override

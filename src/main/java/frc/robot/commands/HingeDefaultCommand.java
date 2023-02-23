@@ -33,35 +33,47 @@ public class HingeDefaultCommand extends CommandBase {
   public void execute() {
 
 
-    // if(RobotContainer.hingePos != previouPosition){
-    //   hold = false;
-    // }
-
-    // if(RobotContainer.hinge.Pivot(RobotContainer.hingePos, hold)){
-    //   hold = true;
-    // }
-
-    // previouPosition = RobotContainer.hingePos;
-
-    if(RobotContainer.driver.getAButton()){
-      speedUpTick = 0;
-      if(RobotContainer.hinge.Pivot(HingePosition.Straight, false)){
-        hold = true;
-      }
-      if(speedUpTick == 0){
-        pid = new PIDController(0.0000087, 0.00000025, 0);
-      }
-      speedUpTick++;
-    }else if(RobotContainer.driver.getBButton()){
+    if(RobotContainer.hingePos == HingePosition.Retracted){
       var d = pid.calculate(RobotContainer.hinge.hingeMotor.getSelectedSensorPosition(), 3000);
 
       RobotContainer.hinge.Pivot(d);
 
       hold = false;
     }else{
-      RobotContainer.hinge.Pivot(0);
-      hold = false;
+      if(RobotContainer.hinge.Pivot(RobotContainer.hingePos, hold)){
+        hold = true;
+      }
+
+      //Reset the pid for retracting
+      pid = new PIDController(0.0000087, 0.00000025, 0);
     }
+
+    // if(RobotContainer.hingePos == HingePosition.Straight){
+      
+    //   if(RobotContainer.hinge.Pivot(HingePosition.Straight, hold)){
+    //     hold = true;
+    //   }
+
+    //   //Reset the pid for retracting
+    //   pid = new PIDController(0.0000087, 0.00000025, 0);
+      
+    // }else if(RobotContainer.hingePos == HingePosition.Retracted){
+    //   var d = pid.calculate(RobotContainer.hinge.hingeMotor.getSelectedSensorPosition(), 3000);
+
+    //   RobotContainer.hinge.Pivot(d);
+
+    //   hold = false;
+    // }else if(RobotContainer.hingePos == HingePosition.Floor){
+    
+      
+    //   if(RobotContainer.hinge.Pivot(HingePosition.Floor, hold)){
+    //     hold = true;
+    //   }
+
+    //   //Reset the pid for retracting
+    //   pid = new PIDController(0.0000087, 0.00000025, 0);
+
+    // }
 
   }
 

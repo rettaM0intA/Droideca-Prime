@@ -26,11 +26,11 @@ public class Driveline extends SubsystemBase {
   private final SwerveModule m_leftFront = new SwerveModule("LF", CANIDS.kDriveline_LFSteer, CANIDS.kDriveline_LFDrive,
       CANIDS.kDriveline_LFSteerEnc, InvertType.None, InvertType.InvertMotorOutput, SWERVE.kLFAbsoluteOffsetInDegrees);
   private final SwerveModule m_rightFront = new SwerveModule("RF", CANIDS.kDriveline_RFSteer, CANIDS.kDriveline_RFDrive,
-      CANIDS.kDriveline_RFSteerEnc, InvertType.None, InvertType.InvertMotorOutput,SWERVE.kRFAbsoluteOffsetInDegrees);
+      CANIDS.kDriveline_RFSteerEnc, InvertType.InvertMotorOutput, InvertType.InvertMotorOutput,SWERVE.kRFAbsoluteOffsetInDegrees);
   private final SwerveModule m_leftBack = new SwerveModule("LB", CANIDS.kDriveline_LBSteer, CANIDS.kDriveline_LBDrive,
       CANIDS.kDriveline_LBSteerEnc, InvertType.None, InvertType.InvertMotorOutput, SWERVE.kLBAbsoluteOffsetInDegrees);
   public final SwerveModule m_rightBack = new SwerveModule("RB", CANIDS.kDriveline_RBSteer, CANIDS.kDriveline_RBDrive,
-      CANIDS.kDriveline_RBSteerEnc, InvertType.None, InvertType.InvertMotorOutput,SWERVE.kRBAbsoluteOffsetInDegrees);
+      CANIDS.kDriveline_RBSteerEnc, InvertType.InvertMotorOutput, InvertType.InvertMotorOutput,SWERVE.kRBAbsoluteOffsetInDegrees);
 
   private final AHRS m_gyro = new AHRS(I2C.Port.kOnboard);
   

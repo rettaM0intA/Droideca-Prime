@@ -89,9 +89,6 @@ public class HingeSubsystem extends SubsystemBase {
       }else{
         hingeMotor.set(TalonFXControlMode.PercentOutput, -0.033);
       }
-
-    }else if(goalPosition == HingePosition.Floor){
-      //TODO: Make this
     }
 
     return hold;
