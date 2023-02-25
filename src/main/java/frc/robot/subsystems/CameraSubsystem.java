@@ -61,7 +61,7 @@ public class CameraSubsystem extends SubsystemBase {
 
     //tv returns the amount of visable targets. This simply varifies that there are more than 0 of them.
     NetworkTableEntry tv = table.getEntry("tv");
-    SmartDashboard.putNumber("tv", tv.getDouble(0));
+    // SmartDashboard.putNumber("tv", tv.getDouble(0));
 
     if(tv.getInteger(0) < 1){
       return false;
@@ -81,9 +81,9 @@ public class CameraSubsystem extends SubsystemBase {
     double pipeline = table.getEntry("pipeline").getDouble(500);
 
     //post to smart dashboard periodically
-    SmartDashboard.putNumber("LimelightX", x);
-    SmartDashboard.putNumber("LimelightY", y);
-    SmartDashboard.putNumber("LimelightArea", area);
-    SmartDashboard.putNumber("LimelightType", pipeline);
+    // SmartDashboard.putNumber("LimelightX", x);
+    // SmartDashboard.putNumber("LimelightY", y);
+    // SmartDashboard.putNumber("LimelightArea", area);
+    // SmartDashboard.putNumber("LimelightType", pipeline);
   }
 }

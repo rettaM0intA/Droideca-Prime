@@ -87,7 +87,7 @@ public class SwerveModule {
         m_steerEncoder = new CANCoder(_steerCANCoderCANID, "5216 Canivore");
         double steerAng = m_steerEncoder.getAbsolutePosition();
         double steerDiff =  (steerAng - _angOffsetDeg) * SWERVE.kSteerMotCntsPerWheelDeg;
-        SmartDashboard.putNumber(Double.toString(_angOffsetDeg), steerDiff);
+        // SmartDashboard.putNumber(Double.toString(_angOffsetDeg), steerDiff);
         m_steerMotor.setSelectedSensorPosition(steerDiff);
 
 
@@ -112,7 +112,7 @@ public class SwerveModule {
     public void straightenSteerMotor(){
         double steerAng = m_steerEncoder.getAbsolutePosition();
         double steerDiff =  (steerAng - m_steerEncoderAbsoluteOffset) * SWERVE.kSteerMotCntsPerWheelDeg;
-        SmartDashboard.putNumber(Double.toString(m_steerEncoderAbsoluteOffset), steerDiff);
+        // SmartDashboard.putNumber(Double.toString(m_steerEncoderAbsoluteOffset), steerDiff);
         m_steerMotor.setSelectedSensorPosition(steerDiff);
     }
 

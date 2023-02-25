@@ -51,7 +51,7 @@ public class AutoSpin extends CommandBase {
   @Override
   public void execute() {
 
-    SmartDashboard.putNumber("Buffer", buffer);
+    // SmartDashboard.putNumber("Buffer", buffer);
 
     buffer += 1;
 

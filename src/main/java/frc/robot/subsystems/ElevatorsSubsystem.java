@@ -4,53 +4,87 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.enums.ElevatorPosition;
 
 public class ElevatorsSubsystem extends SubsystemBase {
 
-  private TalonFX VerticalLeft = new TalonFX(12);
-  private TalonFX VerticalRight = new TalonFX(13);
+  private int currentPID = -1;
+
+  private WPI_TalonFX VerticalLeft = new WPI_TalonFX(12);
+  private WPI_TalonFX VerticalRight = new WPI_TalonFX(13);
 
   //All the directional limits. up down out in.
-  private double verticalLimit = 100;
-  private double groundLimit = 0;
+  private double verticalLimit = 40000;
+  private double midGoalPosition = 30000;
+  private double groundLimit = 1200;
 
   /** Creates a new ElevatorsSubsystem. */
-  public ElevatorsSubsystem() {}
+  public ElevatorsSubsystem() {
 
-  /**
-   * Use to raise and lower the elevator by a predetermined rate. Automatically stops before limits
-   * @param direction Set true to go up. False to go down
-   */
-  public void RaiseLower(boolean direction){
+    VerticalLeft.setSelectedSensorPosition(0);
+    VerticalRight.setSelectedSensorPosition(0);
 
-    if(direction && !TopLimitReached()){
-      VerticalLeft.set(TalonFXControlMode.Velocity, 5);
-      VerticalRight.set(TalonFXControlMode.Velocity, 5);
-    }else if(!direction && !BottomLimitReached()){
-      VerticalLeft.set(TalonFXControlMode.Velocity, -5);
-      VerticalRight.set(TalonFXControlMode.Velocity, -5);
-    }
+    VerticalLeft.setInverted(false);
+    VerticalRight.setInverted(false);
 
+    VerticalLeft.setNeutralMode(NeutralMode.Brake);
+    VerticalRight.setNeutralMode(NeutralMode.Brake);
+
+    VerticalLeft.enableVoltageCompensation(false);
+    VerticalRight.enableVoltageCompensation(false);
+
+    VerticalRight.follow(VerticalLeft);
+
+    PID(0);
+
+    Move(0);
   }
 
   /**
    * Use to raise and lower the elevator with the input speed. Automatically stops before limits
    * @param speed Power to drive the motor with.
    */
-  public void RaiseLower(double speed){
+  public void Move(double speed){
     if((speed > 0 && !TopLimitReached()) || (speed < 0 && !BottomLimitReached())){
-      VerticalLeft.set(TalonFXControlMode.Velocity, speed);
-      VerticalRight.set(TalonFXControlMode.Velocity, speed);
+      VerticalLeft.set(TalonFXControlMode.PercentOutput, speed);
+    }else{
+      VerticalLeft.set(TalonFXControlMode.PercentOutput, 0);
     }
     
   }
 
+  public void voltageMove(double power){
+
+    VerticalLeft.setVoltage(power);
+
+    SmartDashboard.putNumber("LeftElevatorVoltage", power);
+
+  }
+
+
+  private void PID(int PidType){
+
+    if(PidType == 0 && currentPID != 0){
+      VerticalLeft.config_kP(0, 0);
+      VerticalLeft.config_kI(0, 0);
+      VerticalLeft.config_kD(0, 0);
+      VerticalLeft.config_kF(0, 0);
+    }
+  }
+
   public boolean TopLimitReached(){
     return VerticalLeft.getSelectedSensorPosition() >= verticalLimit;
+  }
+
+  public boolean MidReached(){
+    return VerticalLeft.getSelectedSensorPosition() >= midGoalPosition;
   }
 
   public boolean BottomLimitReached(){
@@ -60,5 +94,7 @@ public class ElevatorsSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("LeftElevatorPosition", VerticalLeft.getSelectedSensorPosition());
+    SmartDashboard.putNumber("RightElevatorPosition", VerticalRight.getSelectedSensorPosition());
   }
 }

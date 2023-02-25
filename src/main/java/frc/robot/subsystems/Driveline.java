@@ -81,10 +81,10 @@ public class Driveline extends SubsystemBase {
         // SmartDashboard.putNumber("Driveline RF Current", m_rightFront.getDriveCurrent());
         // SmartDashboard.putNumber("Driveline RB Current", m_rightBack.getDriveCurrent());
         // SmartDashboard.putData(RobotContainer.PDP);
-        SmartDashboard.putNumber("FrontLeftEncoder", m_leftFront.getSteerEncAngleDeg());
-        SmartDashboard.putNumber("BackLeftEncoder", m_leftBack.getSteerEncAngleDeg());
-        SmartDashboard.putNumber("FrontRightEncoder", m_rightFront.getSteerEncAngleDeg());
-        SmartDashboard.putNumber("BackRightEncoder", m_rightBack.getSteerEncAngleDeg());
+        // SmartDashboard.putNumber("FrontLeftEncoder", m_leftFront.getSteerEncAngleDeg());
+        // SmartDashboard.putNumber("BackLeftEncoder", m_leftBack.getSteerEncAngleDeg());
+        // SmartDashboard.putNumber("FrontRightEncoder", m_rightFront.getSteerEncAngleDeg());
+        // SmartDashboard.putNumber("BackRightEncoder", m_rightBack.getSteerEncAngleDeg());
         // SmartDashboard.putNumber("BackRight Motor Position", m_rightBack.m_steerMotor.getSelectedSensorPosition() * Constants.kChassisDegreetoMotor);
 
   }

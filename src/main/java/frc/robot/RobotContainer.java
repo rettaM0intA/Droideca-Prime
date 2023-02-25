@@ -11,10 +11,12 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.CameraDefaultCommand;
+import frc.robot.commands.ChangeElevatorPosition;
 import frc.robot.commands.ChangeHingePosition;
 import frc.robot.commands.ClawDefaultCommand;
 import frc.robot.commands.ClawHingeCommand;
 import frc.robot.commands.DrivelineDefaultCommand;
+import frc.robot.commands.ElevatorDefaultCommand;
 import frc.robot.commands.ExtenderDefaultCommand;
 import frc.robot.commands.HingeDefaultCommand;
 import frc.robot.commands.VisionAssistedItemPlacement;
@@ -24,6 +26,7 @@ import frc.robot.enums.HingePosition;
 import frc.robot.subsystems.CameraSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.Driveline;
+import frc.robot.subsystems.ElevatorsSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 // import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.HingeSubsystem;
@@ -54,6 +57,9 @@ public class RobotContainer {
 
   public static ControllerInControl gamepadDriver = ControllerInControl.flightStick;
 
+  public static ElevatorsSubsystem elevator = new ElevatorsSubsystem();
+  private ElevatorDefaultCommand elevatorDefaultCommand = new ElevatorDefaultCommand();
+
   public static ExtenderSubsystem extender = new ExtenderSubsystem();
   public ExtenderDefaultCommand extenderDefaultCommand = new ExtenderDefaultCommand();
   public static ExtenderPosition extendPos = ExtenderPosition.Retracted;
@@ -68,10 +74,10 @@ public class RobotContainer {
   private VisionAssistedItemPlacement visionAssistedItemPlacement = new VisionAssistedItemPlacement();
 
 
-  public static ElevatorPosition elevatPos = ElevatorPosition.Floor;
+  public static ElevatorPosition elevatPos = ElevatorPosition.Human;
 
   public static boolean fullSpeed = false;
-  public static boolean clawClosed = false;
+  public static boolean clawClosed = true;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -81,9 +87,10 @@ public class RobotContainer {
     driveline.setDefaultCommand(drivelineDefaultCommand);
     
     // camera.setDefaultCommand(visionAssistedItemPlacement);
+    elevator.setDefaultCommand(elevatorDefaultCommand);
+    extender.setDefaultCommand(extenderDefaultCommand);
     hinge.setDefaultCommand(hingeDefaultCommand);
-    // extender.setDefaultCommand(extenderDefaultCommand);
-    // claw.setDefaultCommand(clawDefaultCommand);
+    claw.setDefaultCommand(clawDefaultCommand);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -107,14 +114,16 @@ public class RobotContainer {
 
     
     JoystickButton inDownRetractButton = new JoystickButton(operator, 1);
-    inDownRetractButton.onTrue(new ChangeHingePosition(HingePosition.Retracted));
-
+    inDownRetractButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Floor));
+    // inDownRetractButton.onTrue(new ChangeHingePosition(HingePosition.Retracted));
       
     JoystickButton inDownFloorButton = new JoystickButton(operator, 2);
-    inDownFloorButton.onTrue(new ChangeHingePosition(HingePosition.Floor));
+    inDownFloorButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Top));
+    // inDownFloorButton.onTrue(new ChangeHingePosition(HingePosition.Floor));
 
     JoystickButton inMidStraightButton = new JoystickButton(operator, 3);
-    inMidStraightButton.onTrue(new ChangeHingePosition(HingePosition.Straight));
+    inMidStraightButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Mid));
+    // inMidStraightButton.onTrue(new ChangeHingePosition(HingePosition.Straight));
 
 
   }

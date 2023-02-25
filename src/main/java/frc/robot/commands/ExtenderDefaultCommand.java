@@ -21,10 +21,13 @@ public class ExtenderDefaultCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
     // if(RobotContainer.operator.getAButton()){
     //   RobotContainer.extender.Extend(true);
+
     // }else if(RobotContainer.operator.getBButton()){
     //   RobotContainer.extender.Extend(false);
+      
     // }else{
       RobotContainer.extender.Hold();
     // }

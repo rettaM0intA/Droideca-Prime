@@ -170,11 +170,11 @@ public class ExtenderSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("leftExtenderPos", leftExtender.getSelectedSensorPosition());
-    SmartDashboard.putNumber("rightExtenderPos", rightExtender.getSelectedSensorPosition());
+    // SmartDashboard.putNumber("leftExtenderPos", leftExtender.getSelectedSensorPosition());
+    // SmartDashboard.putNumber("rightExtenderPos", rightExtender.getSelectedSensorPosition());
 
     
-    SmartDashboard.putNumber("leftExtender Output", leftExtender.getMotorOutputPercent());
-    SmartDashboard.putNumber("rightExtender Output", rightExtender.getMotorOutputPercent());
+    // SmartDashboard.putNumber("leftExtender Output", leftExtender.getMotorOutputPercent());
+    // SmartDashboard.putNumber("rightExtender Output", rightExtender.getMotorOutputPercent());
   }
 }
