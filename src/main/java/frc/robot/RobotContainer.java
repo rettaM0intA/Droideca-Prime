@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.CameraDefaultCommand;
 import frc.robot.commands.ChangeElevatorPosition;
+import frc.robot.commands.ChangeExtenderPosition;
 import frc.robot.commands.ChangeHingePosition;
 import frc.robot.commands.ClawDefaultCommand;
 import frc.robot.commands.ClawHingeCommand;
@@ -114,16 +115,19 @@ public class RobotContainer {
 
     
     JoystickButton inDownRetractButton = new JoystickButton(operator, 1);
+    // inDownRetractButton.onTrue(new ChangeExtenderPosition(ExtenderPosition.Retracted));
     inDownRetractButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Floor));
     // inDownRetractButton.onTrue(new ChangeHingePosition(HingePosition.Retracted));
       
     JoystickButton inDownFloorButton = new JoystickButton(operator, 2);
+    // inDownFloorButton.onTrue(new ChangeExtenderPosition(ExtenderPosition.Retracted));
     inDownFloorButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Top));
     // inDownFloorButton.onTrue(new ChangeHingePosition(HingePosition.Floor));
 
-    JoystickButton inMidStraightButton = new JoystickButton(operator, 3);
-    inMidStraightButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Mid));
-    // inMidStraightButton.onTrue(new ChangeHingePosition(HingePosition.Straight));
+    JoystickButton outMidStraightButton = new JoystickButton(operator, 3);
+    // outMidStraightButton.onTrue(new ChangeExtenderPosition(ExtenderPosition.Extended));
+    outMidStraightButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Mid));
+    // outMidStraightButton.onTrue(new ChangeHingePosition(HingePosition.Straight));
 
 
   }

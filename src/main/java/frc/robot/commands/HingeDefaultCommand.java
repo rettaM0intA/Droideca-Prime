@@ -18,7 +18,7 @@ public class HingeDefaultCommand extends CommandBase {
 
   HingePosition previousPosition = HingePosition.Retracted;
   
-  PIDController pid = new PIDController(0.0000087, 0.00000025, 0);
+  PIDController pid = new PIDController(0.0000125, 0.00000025, 0);
 
   /** Creates a new HingeDefaultCommand. */
   public HingeDefaultCommand() {
@@ -48,7 +48,7 @@ public class HingeDefaultCommand extends CommandBase {
         speedUpTick++;
 
       }else{
-        var d = pid.calculate(RobotContainer.hinge.hingeMotor.getSelectedSensorPosition(), 3000);
+        var d = pid.calculate(RobotContainer.hinge.hingeMotor.getSelectedSensorPosition(), 2000);
         
         RobotContainer.hinge.Pivot(d);
         
@@ -62,12 +62,12 @@ public class HingeDefaultCommand extends CommandBase {
       //   RobotContainer.hinge.Pivot(-.4);
       //   speedUpTick++;
       // }else
-       if(RobotContainer.hinge.Pivot(RobotContainer.hingePos, false)){
+       if(RobotContainer.hinge.Pivot(RobotContainer.hingePos, hold)){
         hold = true;
       }
 
-      //Reset the pid for retracting
-      pid = new PIDController(0.0000087, 0.00000025, 0);
+      //Reset the pid for retracting. Yes, this does something
+      pid = new PIDController(0.0000125, 0.00000025, 0);
     }
 
       // RobotContainer.hinge.Pivot(RobotContainer.driver.getRightTriggerAxis() - RobotContainer.driver.getLeftTriggerAxis());

@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.enums.ExtenderPosition;
 
 public class ExtenderDefaultCommand extends CommandBase {
   /** Creates a new ElavatorHorizontalDefaultCommand. */
@@ -22,15 +23,15 @@ public class ExtenderDefaultCommand extends CommandBase {
   @Override
   public void execute() {
 
-    // if(RobotContainer.operator.getAButton()){
-    //   RobotContainer.extender.Extend(true);
+    if(RobotContainer.extendPos == ExtenderPosition.Extended){
+      RobotContainer.extender.Extend(true);
 
-    // }else if(RobotContainer.operator.getBButton()){
-    //   RobotContainer.extender.Extend(false);
+    }else if(RobotContainer.extendPos == ExtenderPosition.Retracted){
+      RobotContainer.extender.Extend(false);
       
-    // }else{
+    }else{
       RobotContainer.extender.Hold();
-    // }
+    }
   }
 
   // Called once the command ends or is interrupted.

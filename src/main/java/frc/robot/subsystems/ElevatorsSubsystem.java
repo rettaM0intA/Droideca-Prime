@@ -23,7 +23,7 @@ public class ElevatorsSubsystem extends SubsystemBase {
   //All the directional limits. up down out in.
   private double verticalLimit = 40000;
   private double midGoalPosition = 30000;
-  private double groundLimit = 1200;
+  private double groundLimit = 2000;
 
   /** Creates a new ElevatorsSubsystem. */
   public ElevatorsSubsystem() {
@@ -62,9 +62,18 @@ public class ElevatorsSubsystem extends SubsystemBase {
 
   public void voltageMove(double power){
 
+    double voltage;
+
+    if(Math.abs(power) > 4){
+      voltage = Math.signum(power) * 4;
+      VerticalLeft.setVoltage(voltage);
+    }
+
+
     VerticalLeft.setVoltage(power);
 
     SmartDashboard.putNumber("LeftElevatorVoltage", power);
+    SmartDashboard.putNumber("RightElevatorVoltage", power);
 
   }
 

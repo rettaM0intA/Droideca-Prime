@@ -20,7 +20,7 @@ public class HingeSubsystem extends SubsystemBase {
 
   private int currentPid = 1;
   
-  private final double hingeOutLimit = 51000;
+  private final double hingeOutLimit = 55000;
   private final double hingeOutChangePoint = 40000;
 
   private final double hingeFloorLimit = 60000; //62000
@@ -127,12 +127,12 @@ public class HingeSubsystem extends SubsystemBase {
     
     if(pidType == 0 && currentPid != 0){
       //Pull out start
-      hingeMotor.config_kP(0, 0.007);
+      hingeMotor.config_kP(0, 0.0145);
       hingeMotor.config_kI(0, 0);
       hingeMotor.config_kD(0, 0);
       hingeMotor.config_kF(0, 0);
 
-      hingeMotor.configPeakOutputForward(.7);
+      hingeMotor.configPeakOutputForward(.9);
 
       currentPid = 0;
       return;
@@ -149,7 +149,7 @@ public class HingeSubsystem extends SubsystemBase {
     }
     if(pidType == 2 && currentPid != 2){
       //Pull out second phase
-      hingeMotor.config_kP(0, 0.013);
+      hingeMotor.config_kP(0, 0.017);
       hingeMotor.config_kI(0, 0);
       hingeMotor.config_kD(0, 0);
       hingeMotor.config_kF(0, -0.00002);
@@ -194,7 +194,7 @@ public class HingeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    // SmartDashboard.putNumber("Hinge position", hingeMotor.getSelectedSensorPosition());
-    // SmartDashboard.putNumber("Hinge Output", hingeMotor.getMotorOutputPercent());
+    SmartDashboard.putNumber("Hinge position", hingeMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Hinge Output", hingeMotor.getMotorOutputPercent());
   }
 }

@@ -28,7 +28,9 @@ public class ExtenderSubsystem extends SubsystemBase {
 
   private boolean goingOut = false;
   private boolean goingIn = false;
+
   private int powerFactor = 0;
+  private int initialPowerFacter = 45;
 
   private double inDivisor = 90;
   private double outDivisor = 90;
@@ -57,7 +59,7 @@ public class ExtenderSubsystem extends SubsystemBase {
     if(outOrIn){
       goingOut = false;
       if(!goingIn){
-        powerFactor = 0;
+        powerFactor = initialPowerFacter;
         goingIn = true;
         goingOut = false;
       }
@@ -78,7 +80,7 @@ public class ExtenderSubsystem extends SubsystemBase {
       }else if(getPositions() < outSecondChangePoint){
         if(powerFactor > outDivisor / 2){
 
-          powerFactor -= 3;
+          powerFactor -= 6;
           leftExtender.set(TalonFXControlMode.PercentOutput, 0.21 * powerFactor / outDivisor);
           rightExtender.set(TalonFXControlMode.PercentOutput, 0.21 * powerFactor / outDivisor);
         }else{
@@ -95,7 +97,7 @@ public class ExtenderSubsystem extends SubsystemBase {
     if(!outOrIn){
       goingIn = false;
       if(!goingOut){
-        powerFactor = 0;
+        powerFactor = initialPowerFacter;
         goingOut = true;
       }
       if(getPositions() >= inChangePoint){
