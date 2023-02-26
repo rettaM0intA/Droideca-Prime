@@ -59,7 +59,7 @@ public class ExtenderSubsystem extends SubsystemBase {
     if(outOrIn){
       goingOut = false;
       if(!goingIn){
-        powerFactor = initialPowerFacter;
+        powerFactor = 0;
         goingIn = true;
         goingOut = false;
       }

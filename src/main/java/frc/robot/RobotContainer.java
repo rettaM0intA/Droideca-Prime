@@ -71,14 +71,14 @@ public class RobotContainer {
 
   public static ClawSubsystem claw = new ClawSubsystem();
   private ClawDefaultCommand clawDefaultCommand = new ClawDefaultCommand();
+  public static boolean clawClosed = true;
 
   private VisionAssistedItemPlacement visionAssistedItemPlacement = new VisionAssistedItemPlacement();
 
 
-  public static ElevatorPosition elevatPos = ElevatorPosition.Human;
+  public static ElevatorPosition elevatPos = ElevatorPosition.Floor;
 
   public static boolean fullSpeed = false;
-  public static boolean clawClosed = true;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -115,19 +115,24 @@ public class RobotContainer {
 
     
     JoystickButton inDownRetractButton = new JoystickButton(operator, 1);
-    // inDownRetractButton.onTrue(new ChangeExtenderPosition(ExtenderPosition.Retracted));
+    inDownRetractButton.onTrue(new ChangeExtenderPosition(ExtenderPosition.Retracted));
     inDownRetractButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Floor));
-    // inDownRetractButton.onTrue(new ChangeHingePosition(HingePosition.Retracted));
+    inDownRetractButton.onTrue(new ChangeHingePosition(HingePosition.Retracted));
       
     JoystickButton inDownFloorButton = new JoystickButton(operator, 2);
-    // inDownFloorButton.onTrue(new ChangeExtenderPosition(ExtenderPosition.Retracted));
-    inDownFloorButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Top));
-    // inDownFloorButton.onTrue(new ChangeHingePosition(HingePosition.Floor));
+    inDownFloorButton.onTrue(new ChangeExtenderPosition(ExtenderPosition.Retracted));
+    inDownFloorButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Floor));
+    inDownFloorButton.onTrue(new ChangeHingePosition(HingePosition.Floor));
 
-    JoystickButton outMidStraightButton = new JoystickButton(operator, 3);
-    // outMidStraightButton.onTrue(new ChangeExtenderPosition(ExtenderPosition.Extended));
-    outMidStraightButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Mid));
-    // outMidStraightButton.onTrue(new ChangeHingePosition(HingePosition.Straight));
+    JoystickButton inMidStraightButton = new JoystickButton(operator, 3);
+    inMidStraightButton.onTrue(new ChangeExtenderPosition(ExtenderPosition.Retracted));
+    inMidStraightButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Mid));
+    inMidStraightButton.onTrue(new ChangeHingePosition(HingePosition.Straight));
+
+    JoystickButton outHighStraighButton = new JoystickButton(operator, 4);
+    outHighStraighButton.onTrue(new ChangeExtenderPosition(ExtenderPosition.Extended));
+    outHighStraighButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Top));
+    outHighStraighButton.onTrue(new ChangeHingePosition(HingePosition.HighGoal));
 
 
   }

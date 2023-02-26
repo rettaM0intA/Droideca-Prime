@@ -27,6 +27,7 @@ public class ClawSubsystem extends SubsystemBase {
   /** Creates a new ClawSubsystem. */
   public ClawSubsystem() {
 
+    // compressor.enableDigital();
     compressor.disable();
 
     clawSolenoid.set(Value.kReverse);

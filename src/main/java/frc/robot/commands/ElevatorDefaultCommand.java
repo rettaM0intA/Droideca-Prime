@@ -10,6 +10,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.enums.ElevatorPosition;
+import frc.robot.enums.HingePosition;
 
 public class ElevatorDefaultCommand extends CommandBase {
   
@@ -44,6 +45,13 @@ public class ElevatorDefaultCommand extends CommandBase {
     if(previousPostion != position){
       hold = false;
       previousPostion = position;
+
+      if(position == ElevatorPosition.Top){
+        elevatorFeedforward = new ElevatorFeedforward(0.2, 1.12, 0.0000295);
+      }else{
+        elevatorFeedforward = new ElevatorFeedforward(0.2, 1.12, 0.0000295);
+      }
+
     }
 
     //Check if the elevator needs to be held in position
@@ -51,26 +59,43 @@ public class ElevatorDefaultCommand extends CommandBase {
       if(!RobotContainer.elevator.TopLimitReached() && !RobotContainer.elevator.BottomLimitReached()){
         
           if(position != ElevatorPosition.Floor){
-            RobotContainer.elevator.voltageMove(elevatorFeedforward.calculate(-10));
+            RobotContainer.elevator.voltageMove(elevatorFeedforward.calculate(0));
             // RobotContainer.elevator.Move(0.08);
           }
         return;
       }else{
-        RobotContainer.elevator.Move(0);
+        RobotContainer.elevator.hitTop = true;
+        RobotContainer.elevator.voltageMove(0);
         return;
       }
     }
     
-    if(position == ElevatorPosition.Mid && !RobotContainer.elevator.TopLimitReached()){
-      RobotContainer.elevator.voltageMove(elevatorFeedforward.calculate(82000));
+    if(position == ElevatorPosition.Top && !RobotContainer.elevator.TopLimitReached()){
+      
+      if(RobotContainer.elevator.HighChangePointReached())
+        RobotContainer.elevator.voltageMove(elevatorFeedforward.calculate(60000));
+      else
+        RobotContainer.elevator.voltageMove(elevatorFeedforward.calculate(105000));
+
+      if(RobotContainer.elevator.HighReached()){
+        hold = true;
+      }
+
+    }else if(position == ElevatorPosition.Mid && !RobotContainer.elevator.TopLimitReached()){
+      RobotContainer.elevator.voltageMove(elevatorFeedforward.calculate(98000));
+
       if(RobotContainer.elevator.MidReached()){
         hold = true;
       }
+    
     }else if(position == ElevatorPosition.Floor && !RobotContainer.elevator.BottomLimitReached()){
       RobotContainer.elevator.voltageMove(elevatorFeedforward.calculate(-82000));
+
       if(RobotContainer.elevator.BottomLimitReached()){
         RobotContainer.elevator.voltageMove(elevatorFeedforward.calculate(0));
       }
+
+
     }else{
       RobotContainer.elevator.Move(0);
     }

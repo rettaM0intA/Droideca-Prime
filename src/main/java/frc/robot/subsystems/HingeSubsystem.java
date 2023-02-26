@@ -20,14 +20,15 @@ public class HingeSubsystem extends SubsystemBase {
 
   private int currentPid = 1;
   
+  private final double hingeInChangePoint = 10000;
+  private final double hingeInLimit = 1000;
+
+  private final double hingeHighGoal = 45000;
+  
   private final double hingeOutLimit = 55000;
   private final double hingeOutChangePoint = 40000;
 
-  private final double hingeFloorLimit = 60000; //62000
-
-  // private final double hingeInStartGoal = 6000;
-  private final double hingeInChangePoint = 10000;
-  private final double hingeInLimit = 1000;
+  private final double hingeFloorLimit = 60000;
 
   /** Creates a new Hinge. */
   public HingeSubsystem() {
@@ -56,6 +57,20 @@ public class HingeSubsystem extends SubsystemBase {
         Pid(1);
         hingeMotor.set(TalonFXControlMode.Position, hingeFloorLimit);
         return true;
+      }
+      if(goalPosition == HingePosition.HighGoal){
+        Pid(1);
+        hingeMotor.set(TalonFXControlMode.Position, hingeHighGoal);
+        return true;
+      }
+    }
+
+    if(goalPosition == HingePosition.HighGoal){
+      if(hingeMotor.getSelectedSensorPosition() <= hingeHighGoal - 500){
+        Pid(0);
+        hingeMotor.set(TalonFXControlMode.Position, hingeHighGoal);
+      }else{
+        hold = true;
       }
     }
     
