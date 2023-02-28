@@ -26,12 +26,13 @@ public class ClawSubsystem extends SubsystemBase {
 
   boolean compressorEnabled = true;
   public int clawMovements = 0;
+  public boolean activated = false;
 
   /** Creates a new ClawSubsystem. */
   public ClawSubsystem() {
 
-    compressor.enableDigital();
-    // compressor.disable();
+    // compressor.enableDigital();
+    compressor.disable();
 
     clawSolenoid.set(Value.kReverse);
 

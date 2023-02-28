@@ -24,9 +24,11 @@ public class ClawDefaultCommand extends CommandBase {
 
     if(RobotContainer.operator.getRightTriggerAxis() > .5){
       RobotContainer.claw.Spin(.1);
+      RobotContainer.claw.activated = true;
     }else if(RobotContainer.operator.getLeftTriggerAxis() > .5){
       RobotContainer.claw.Spin(-.13);
-    }else{
+      RobotContainer.claw.activated = true;
+    }else if(RobotContainer.claw.activated){
       RobotContainer.claw.Hold();
     }
 
