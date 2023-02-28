@@ -14,12 +14,14 @@ import frc.robot.commands.CameraDefaultCommand;
 import frc.robot.commands.ChangeElevatorPosition;
 import frc.robot.commands.ChangeExtenderPosition;
 import frc.robot.commands.ChangeHingePosition;
+import frc.robot.commands.ChangeIntakePositionsCommand;
 import frc.robot.commands.ClawDefaultCommand;
 import frc.robot.commands.ClawHingeCommand;
 import frc.robot.commands.DrivelineDefaultCommand;
 import frc.robot.commands.ElevatorDefaultCommand;
 import frc.robot.commands.ExtenderDefaultCommand;
 import frc.robot.commands.HingeDefaultCommand;
+import frc.robot.commands.PneumaticSwitch;
 import frc.robot.commands.VisionAssistedItemPlacement;
 import frc.robot.enums.ElevatorPosition;
 import frc.robot.enums.ExtenderPosition;
@@ -109,30 +111,27 @@ public class RobotContainer {
 
     // DrivelineFieldOrientedModeActive = new JoystickButton(driver, 6);
 
-
-    // JoystickButton HingeSwitch = new JoystickButton(operator, 5);
-    // HingeSwitch.whenPressed(new ClawHingeCommand());
-
+    JoystickButton pneumaticsSwitch = new JoystickButton(driver, 2);
+    pneumaticsSwitch.onTrue(new PneumaticSwitch());
     
     JoystickButton inDownRetractButton = new JoystickButton(operator, 1);
-    inDownRetractButton.onTrue(new ChangeExtenderPosition(ExtenderPosition.Retracted));
-    inDownRetractButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Floor));
-    inDownRetractButton.onTrue(new ChangeHingePosition(HingePosition.Retracted));
+    inDownRetractButton.onTrue(new ChangeIntakePositionsCommand(1));
       
     JoystickButton inDownFloorButton = new JoystickButton(operator, 2);
-    inDownFloorButton.onTrue(new ChangeExtenderPosition(ExtenderPosition.Retracted));
-    inDownFloorButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Floor));
-    inDownFloorButton.onTrue(new ChangeHingePosition(HingePosition.Floor));
+    inDownFloorButton.onTrue(new ChangeIntakePositionsCommand(2));
 
     JoystickButton inMidStraightButton = new JoystickButton(operator, 3);
-    inMidStraightButton.onTrue(new ChangeExtenderPosition(ExtenderPosition.Retracted));
-    inMidStraightButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Mid));
-    inMidStraightButton.onTrue(new ChangeHingePosition(HingePosition.Straight));
+    inMidStraightButton.onTrue(new ChangeIntakePositionsCommand(3));
 
     JoystickButton outHighStraighButton = new JoystickButton(operator, 4);
-    outHighStraighButton.onTrue(new ChangeExtenderPosition(ExtenderPosition.Extended));
-    outHighStraighButton.onTrue(new ChangeElevatorPosition(ElevatorPosition.Top));
-    outHighStraighButton.onTrue(new ChangeHingePosition(HingePosition.HighGoal));
+    outHighStraighButton.onTrue(new ChangeIntakePositionsCommand(4));
+
+    JoystickButton clawHingeButton = new JoystickButton(operator, 5);
+    clawHingeButton.onTrue(new ClawHingeCommand());
+
+    JoystickButton inCollectStraightButton = new JoystickButton(operator, 6);
+    inCollectStraightButton.onTrue(new ChangeIntakePositionsCommand(5));
+
 
 
   }

@@ -8,6 +8,6 @@ package frc.robot.enums;
 public enum ElevatorPosition {
     Floor,
     Mid,
-    Human,
+    Shelf,
     Top
 }

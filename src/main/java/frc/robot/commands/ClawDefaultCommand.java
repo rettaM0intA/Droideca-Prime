@@ -30,10 +30,6 @@ public class ClawDefaultCommand extends CommandBase {
       RobotContainer.claw.Hold();
     }
 
-    if(RobotContainer.operator.getLeftBumperPressed()){
-      RobotContainer.clawClosed = !RobotContainer.clawClosed;
-    }
-
     RobotContainer.claw.Hinge(RobotContainer.clawClosed);
 
   }

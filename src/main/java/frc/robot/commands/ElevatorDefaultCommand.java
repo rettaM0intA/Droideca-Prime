@@ -58,13 +58,15 @@ public class ElevatorDefaultCommand extends CommandBase {
     if(hold){
       if(!RobotContainer.elevator.TopLimitReached() && !RobotContainer.elevator.BottomLimitReached()){
         
-          if(position != ElevatorPosition.Floor){
+          if(position == ElevatorPosition.Top){
             RobotContainer.elevator.voltageMove(elevatorFeedforward.calculate(0));
-            // RobotContainer.elevator.Move(0.08);
+            
+          }else if(position != ElevatorPosition.Floor){
+            RobotContainer.elevator.voltageMove(elevatorFeedforward.calculate(-1));
+            
           }
         return;
       }else{
-        RobotContainer.elevator.hitTop = true;
         RobotContainer.elevator.voltageMove(0);
         return;
       }
@@ -85,6 +87,13 @@ public class ElevatorDefaultCommand extends CommandBase {
       RobotContainer.elevator.voltageMove(elevatorFeedforward.calculate(98000));
 
       if(RobotContainer.elevator.MidReached()){
+        hold = true;
+      }
+
+    }else if(position == ElevatorPosition.Shelf && !RobotContainer.elevator.TopLimitReached()){
+      RobotContainer.elevator.voltageMove(elevatorFeedforward.calculate(98000));
+      
+      if(RobotContainer.elevator.ShelfReached()){
         hold = true;
       }
     

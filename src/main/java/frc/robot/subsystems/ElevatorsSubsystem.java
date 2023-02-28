@@ -21,13 +21,12 @@ public class ElevatorsSubsystem extends SubsystemBase {
   private WPI_TalonFX VerticalRight = new WPI_TalonFX(13);
 
   //All the directional limits. up down out in.
-  private double verticalLimit = 70000;
-  private double highGoalPosition = 69000;
-  private double highSlowdownPosition = 67000;
-  private double midGoalPosition = 55000;
-  private double groundLimit = 2000;
-
-  public boolean hitTop = false;
+  private final double verticalLimit = 70000;
+  private final double highGoalPosition = 69000;
+  private final double highSlowdownPosition = 67000;
+  private final double shelfGoalPosition = 62000;
+  private final double midGoalPosition = 55000;
+  private final double groundLimit = 2000;
 
   /** Creates a new ElevatorsSubsystem. */
   public ElevatorsSubsystem() {
@@ -75,7 +74,6 @@ public class ElevatorsSubsystem extends SubsystemBase {
 
     if(power > 0 && TopLimitReached()){
       VerticalLeft.setVoltage(1.1);
-      hitTop = true;
     }else{
 
       VerticalLeft.setVoltage(power);
@@ -85,7 +83,6 @@ public class ElevatorsSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("LeftElevatorVoltage", power);
     SmartDashboard.putNumber("RightElevatorVoltage", power);
-    SmartDashboard.putBoolean("HIT TOP", hitTop);
 
   }
 
@@ -114,6 +111,10 @@ public class ElevatorsSubsystem extends SubsystemBase {
 
   public boolean MidReached(){
     return VerticalLeft.getSelectedSensorPosition() >= midGoalPosition;
+  }
+
+  public boolean ShelfReached(){
+    return VerticalLeft.getSelectedSensorPosition() >= shelfGoalPosition;
   }
 
   public boolean BottomLimitReached(){
