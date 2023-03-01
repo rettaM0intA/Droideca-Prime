@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 import frc.robot.enums.ElevatorPosition;
 
 public class ElevatorsSubsystem extends SubsystemBase {
@@ -127,4 +128,19 @@ public class ElevatorsSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("LeftElevatorPosition", VerticalLeft.getSelectedSensorPosition());
     SmartDashboard.putNumber("RightElevatorPosition", VerticalRight.getSelectedSensorPosition());
   }
+
+public boolean goalReached() {
+    switch (RobotContainer.elevatPos){
+      case Floor:
+        return BottomLimitReached();
+      case Mid:
+        return MidReached();
+      case Shelf:
+        return ShelfReached();
+      case Top:
+        return HighReached();
+      default:
+        return false;
+    }
+}
 }

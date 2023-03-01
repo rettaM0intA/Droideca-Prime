@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 import frc.robot.enums.HingePosition;
 
 public class HingeSubsystem extends SubsystemBase {
@@ -211,5 +212,20 @@ public class HingeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Hinge position", hingeMotor.getSelectedSensorPosition());
     SmartDashboard.putNumber("Hinge Output", hingeMotor.getMotorOutputPercent());
+  }
+
+  public boolean goalReached() {
+    switch (RobotContainer.hingePos){
+      case Retracted:
+        return hingeMotor.getSelectedSensorPosition() <= 2000;
+      case HighGoal:
+        return hingeMotor.getSelectedSensorPosition() >= hingeHighGoal - 500;
+      case Straight:
+        return hingeMotor.getSelectedSensorPosition() >= hingeOutLimit - 1200;
+      case Floor:
+        return hingeMotor.getSelectedSensorPosition() >= hingeFloorLimit;
+      default:
+        return false;
+    }
   }
 }

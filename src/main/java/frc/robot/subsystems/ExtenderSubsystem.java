@@ -179,4 +179,15 @@ public class ExtenderSubsystem extends SubsystemBase {
     // SmartDashboard.putNumber("leftExtender Output", leftExtender.getMotorOutputPercent());
     // SmartDashboard.putNumber("rightExtender Output", rightExtender.getMotorOutputPercent());
   }
+
+  public boolean goalReached() {
+      switch (RobotContainer.extendPos){
+        case Retracted:
+          return getPositions() >= outLimit - 20;
+        case Extended:
+          return getPositions() <= inLimit + 20;
+        default:
+          return false;
+      }
+  }
 }

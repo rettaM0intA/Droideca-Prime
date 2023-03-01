@@ -22,7 +22,6 @@ public class HingeDefaultCommand extends CommandBase {
 
   /** Creates a new HingeDefaultCommand. */
   public HingeDefaultCommand() {
-    
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.hinge);
   }
