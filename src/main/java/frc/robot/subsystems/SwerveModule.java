@@ -294,5 +294,9 @@ public class SwerveModule {
     public SwerveModulePosition getModulePosition() {
         return new SwerveModulePosition(getDriveVelocityInMPS(), new Rotation2d());
     }
+
+    public void setOpenLoopRampRate(double openLoopRampRate) {
+        m_driveMotor.configClosedloopRamp(openLoopRampRate);
+    }
    
 }

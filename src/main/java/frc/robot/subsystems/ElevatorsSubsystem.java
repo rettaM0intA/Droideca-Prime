@@ -82,8 +82,8 @@ public class ElevatorsSubsystem extends SubsystemBase {
     }
 
 
-    SmartDashboard.putNumber("LeftElevatorVoltage", power);
-    SmartDashboard.putNumber("RightElevatorVoltage", power);
+    // SmartDashboard.putNumber("LeftElevatorVoltage", power);
+    // SmartDashboard.putNumber("RightElevatorVoltage", power);
 
   }
 
@@ -125,8 +125,8 @@ public class ElevatorsSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("LeftElevatorPosition", VerticalLeft.getSelectedSensorPosition());
-    SmartDashboard.putNumber("RightElevatorPosition", VerticalRight.getSelectedSensorPosition());
+    // SmartDashboard.putNumber("LeftElevatorPosition", VerticalLeft.getSelectedSensorPosition());
+    // SmartDashboard.putNumber("RightElevatorPosition", VerticalRight.getSelectedSensorPosition());
   }
 
 public boolean goalReached() {
@@ -138,7 +138,7 @@ public boolean goalReached() {
       case Shelf:
         return ShelfReached();
       case Top:
-        return HighReached();
+        return HighChangePointReached();
       default:
         return false;
     }

@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
@@ -27,7 +26,7 @@ public class AutoSpin extends CommandBase {
     isRight = m_isRight;
 
     
-    startDegree = RobotContainer.driveline.getGyro().getAngle();
+    startDegree = RobotContainer.driveline.getRobotAngle();
 
     if(isRight){
       goalDegree = m_goalDegree /*+ startDegree*/;
@@ -39,7 +38,7 @@ public class AutoSpin extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    goalDegree = goalDegree + RobotContainer.driveline.getGyro().getAngle();
+    goalDegree = goalDegree + RobotContainer.driveline.getRobotAngle();
     buffer = 0;
 
     RobotContainer.driveline.drive(0, 0, 0, false);
@@ -55,7 +54,7 @@ public class AutoSpin extends CommandBase {
 
     buffer += 1;
 
-    currentDegree = RobotContainer.driveline.getGyro().getAngle();
+    currentDegree = RobotContainer.driveline.getRobotAngle();
 
     // if(goalDegree > 0){
     if(isRight){

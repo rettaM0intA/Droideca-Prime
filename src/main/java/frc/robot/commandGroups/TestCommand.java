@@ -5,7 +5,9 @@
 package frc.robot.commandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.VisionAssistedItemPlacement;
+import frc.robot.commands.ClawHingeCommand;
+import frc.robot.commands.VisionAssistedGamepieceLocator;
+import frc.robot.commands.VisionAssistedScoreLineup;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -16,7 +18,9 @@ public class TestCommand extends SequentialCommandGroup {
    */
   public TestCommand() {
     // Add your commands in the addCommands() call, e.g.
-    addCommands(new VisionAssistedItemPlacement());
+    // addCommands(new VisionAssistedItemPlacement());
+
+    addCommands(new VisionAssistedGamepieceLocator());
     
   }
 }

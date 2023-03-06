@@ -4,15 +4,19 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
 public class IntakePositionsReachedCommand extends CommandBase {
 
   int _maxTime;
-  int currentTime = 0;
+  Timer timer = new Timer();
 
-  /** Creates a new IntakePositionsReachedCommand. */
+  /** Creates a new IntakePositionsReachedCommand. 
+   * @param maxTime the amount of seconds
+  */
   public IntakePositionsReachedCommand(int maxTime) {
     // Use addRequirements() here to declare subsystem dependencies.
 
@@ -23,14 +27,16 @@ public class IntakePositionsReachedCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    currentTime = 0;
+    timer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    currentTime++;
+    // SmartDashboard.putBoolean("Elevator goal reached", RobotContainer.elevator.goalReached());
+    // SmartDashboard.putBoolean("Extender goal reached", RobotContainer.extender.goalReached());
+    // SmartDashboard.putBoolean("Hinge goal reached", RobotContainer.hinge.goalReached());
 
   }
 
@@ -41,7 +47,7 @@ public class IntakePositionsReachedCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(currentTime > _maxTime || 
+    if(timer.get() > _maxTime || 
     (RobotContainer.elevator.goalReached() && 
     RobotContainer.extender.goalReached() && 
     RobotContainer.hinge.goalReached())){

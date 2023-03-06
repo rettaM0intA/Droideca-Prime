@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.enums.CameraMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -15,8 +16,21 @@ public class CameraSubsystem extends SubsystemBase {
 
   public NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
+  /**
+   * Horizontal offset
+   */
   public NetworkTableEntry tx = table.getEntry("tx");
+
+
+  /**
+   * Vertical offset
+   */
   public NetworkTableEntry ty = table.getEntry("ty");
+
+  
+  /**
+   * Visual size
+   */
   public NetworkTableEntry ta = table.getEntry("ta");
   
 
@@ -24,7 +38,7 @@ public class CameraSubsystem extends SubsystemBase {
   public CameraSubsystem() {
 
     table.getEntry("stream").setDouble(0);
-    CameraMode(false);
+    CameraMode(CameraMode.off);
 
   }
 
@@ -32,27 +46,41 @@ public class CameraSubsystem extends SubsystemBase {
    * 
    * @param mode set true to make the camera visible. Set false to have it on detect mode.
    */
-  public void CameraMode(boolean mode){
+  public void CameraMode(CameraMode mode){
 
     //pipeline 1 is used for finding april tags
     //pipeline 0 is used for finding cones
+    switch (mode){
+      case off:
+        //Set the search mode to 0 (Nothing)
+        table.getEntry("pileline").setDouble(0);
 
-    if(mode){
-      //Set the search mode to 0 (Retroflective mode)
-      table.getEntry("pileline").setDouble(0);
+        //Turn off the lights!
+        table.getEntry("ledMode").setInteger(0);
+        break;
 
+      case aprilTag:
+        //Set the search mode to 1 (apriltags)
+        table.getEntry("pileline").setDouble(1);
 
-      //Turn on the lights!
-      table.getEntry("ledMode").setInteger(1);
-    }else{
-      //Set the search mode to 1 (apriltags)
-      table.getEntry("pileline").setDouble(1);
+        //set the cam mode to 0 to disable the camera visual feed. Allows finding
+        table.getEntry("camMode").setInteger(0);
 
-      //set the cam mode to 0 to disable the camera visual feed. Allows finding
-      table.getEntry("camMode").setInteger(0);
+        //Turn on the lights!
+        table.getEntry("ledMode").setInteger(1);
+        break;
 
-      //Turn off the lights!
-      table.getEntry("ledMode").setInteger(0);
+      case gamePieceDetector:
+        //Set the search mode to 5 (GamePeices)
+        table.getEntry("pileline").setDouble(5);
+
+        //set the cam mode to 0 to disable the camera visual feed. Allows finding
+        table.getEntry("camMode").setInteger(0);
+
+        //Turn on the lights!
+        table.getEntry("ledMode").setInteger(1);
+        break;
+
     }
 
   }
@@ -75,15 +103,15 @@ public class CameraSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
       
     //read values periodically
-    double x = tx.getDouble(0.0);
-    double y = ty.getDouble(0.0);
-    double area = ta.getDouble(0.0);
+    double x = tx.getDouble(500);
+    double y = ty.getDouble(500);
+    double area = ta.getDouble(500);
     double pipeline = table.getEntry("pipeline").getDouble(500);
 
     //post to smart dashboard periodically
-    // SmartDashboard.putNumber("LimelightX", x);
-    // SmartDashboard.putNumber("LimelightY", y);
-    // SmartDashboard.putNumber("LimelightArea", area);
-    // SmartDashboard.putNumber("LimelightType", pipeline);
+    SmartDashboard.putNumber("LimelightX", x);
+    SmartDashboard.putNumber("LimelightY", y);
+    SmartDashboard.putNumber("LimelightArea", area);
+    SmartDashboard.putNumber("LimelightType", pipeline);
   }
 }

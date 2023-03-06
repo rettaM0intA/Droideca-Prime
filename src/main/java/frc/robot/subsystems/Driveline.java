@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.sensors.Pigeon2;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -32,7 +34,7 @@ public class Driveline extends SubsystemBase {
   public final SwerveModule m_rightBack = new SwerveModule("RB", CANIDS.kDriveline_RBSteer, CANIDS.kDriveline_RBDrive,
       CANIDS.kDriveline_RBSteerEnc, InvertType.InvertMotorOutput, InvertType.InvertMotorOutput,SWERVE.kRBAbsoluteOffsetInDegrees);
 
-  private final AHRS m_gyro = new AHRS(I2C.Port.kOnboard);
+  private final WPI_Pigeon2 m_gyro = new WPI_Pigeon2(3);
   
 
   SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(DRIVE.kDriveKinematics, m_gyro.getRotation2d(), new SwerveModulePosition[] {
@@ -45,6 +47,8 @@ public class Driveline extends SubsystemBase {
   private boolean isFieldOrientedMode = false;
   /** Creates a new Driveline. */
   public Driveline() {
+
+    m_gyro.reset();
 
   }
 
@@ -235,7 +239,10 @@ public class Driveline extends SubsystemBase {
   }
   public double getRobotRoll(){
     
-    return m_gyro.getRoll();
+    return m_gyro.getPitch();
+  }
+  public double getRobotPitch() {
+    return -m_gyro.getRoll();
   }
   public void resetGyro(){
     m_gyro.reset();
@@ -250,7 +257,7 @@ public class Driveline extends SubsystemBase {
     
     return m_gyro.getCompassHeading();
   }
-  public AHRS getGyro(){
+  public Pigeon2 getGyro(){
     return m_gyro;
   }
 }

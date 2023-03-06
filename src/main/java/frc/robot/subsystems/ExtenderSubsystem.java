@@ -182,10 +182,10 @@ public class ExtenderSubsystem extends SubsystemBase {
 
   public boolean goalReached() {
       switch (RobotContainer.extendPos){
-        case Retracted:
-          return getPositions() >= outLimit - 20;
         case Extended:
-          return getPositions() <= inLimit + 20;
+          return getPositions() >= outLimit - 1000;
+        case Retracted:
+          return getPositions() <= inLimit + 1000;
         default:
           return false;
       }

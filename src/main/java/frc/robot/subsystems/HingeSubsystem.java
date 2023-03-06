@@ -207,19 +207,12 @@ public class HingeSubsystem extends SubsystemBase {
     }
   }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Hinge position", hingeMotor.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Hinge Output", hingeMotor.getMotorOutputPercent());
-  }
-
   public boolean goalReached() {
     switch (RobotContainer.hingePos){
       case Retracted:
         return hingeMotor.getSelectedSensorPosition() <= 2000;
       case HighGoal:
-        return hingeMotor.getSelectedSensorPosition() >= hingeHighGoal - 500;
+        return hingeMotor.getSelectedSensorPosition() >= hingeHighGoal - 800;
       case Straight:
         return hingeMotor.getSelectedSensorPosition() >= hingeOutLimit - 1200;
       case Floor:
@@ -228,4 +221,15 @@ public class HingeSubsystem extends SubsystemBase {
         return false;
     }
   }
+
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+    // SmartDashboard.putNumber("Hinge position", hingeMotor.getSelectedSensorPosition());
+    // SmartDashboard.putNumber("Hinge Output", hingeMotor.getMotorOutputPercent());
+    // SmartDashboard.putBoolean("Elevator goal reached", RobotContainer.elevator.goalReached());
+    // SmartDashboard.putBoolean("Extender goal reached", RobotContainer.extender.goalReached());
+    // SmartDashboard.putBoolean("Hinge goal reached", RobotContainer.hinge.goalReached());
+  }
+
 }

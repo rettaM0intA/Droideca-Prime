@@ -22,7 +22,7 @@ import frc.robot.commands.ElevatorDefaultCommand;
 import frc.robot.commands.ExtenderDefaultCommand;
 import frc.robot.commands.HingeDefaultCommand;
 import frc.robot.commands.PneumaticSwitch;
-import frc.robot.commands.VisionAssistedItemPlacement;
+import frc.robot.commands.VisionAssistedScoreLineup;
 import frc.robot.enums.ElevatorPosition;
 import frc.robot.enums.ExtenderPosition;
 import frc.robot.enums.HingePosition;
@@ -75,7 +75,7 @@ public class RobotContainer {
   private ClawDefaultCommand clawDefaultCommand = new ClawDefaultCommand();
   public static boolean clawClosed = true;
 
-  private VisionAssistedItemPlacement visionAssistedItemPlacement = new VisionAssistedItemPlacement();
+  private VisionAssistedScoreLineup visionAssistedItemPlacement = new VisionAssistedScoreLineup();
 
 
   public static ElevatorPosition elevatPos = ElevatorPosition.Floor;
@@ -132,7 +132,8 @@ public class RobotContainer {
     JoystickButton inCollectStraightButton = new JoystickButton(operator, 6);
     inCollectStraightButton.onTrue(new ChangeIntakePositionsCommand(5));
 
-
+    JoystickButton clawHingeTemp = new JoystickButton(driver, 5);
+    clawHingeTemp.onTrue(new ClawHingeCommand());
 
   }
 
