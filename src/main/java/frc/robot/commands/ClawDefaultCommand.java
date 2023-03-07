@@ -22,10 +22,10 @@ public class ClawDefaultCommand extends CommandBase {
   @Override
   public void execute() {
 
-    if(RobotContainer.operator.getRightTriggerAxis() > .5){
+    if(RobotContainer.operator.getLeftTriggerAxis() > .5){
       RobotContainer.claw.Spin(.1);
       RobotContainer.claw.activated = true;
-    }else if(RobotContainer.operator.getLeftTriggerAxis() > .5){
+    }else if(RobotContainer.operator.getRightTriggerAxis() > .5){
       RobotContainer.claw.Spin(-.13);
       RobotContainer.claw.activated = true;
     }else if(RobotContainer.claw.activated){

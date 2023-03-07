@@ -29,7 +29,7 @@ public class HingeSubsystem extends SubsystemBase {
   private final double hingeOutLimit = 55000;
   private final double hingeOutChangePoint = 40000;
 
-  private final double hingeFloorLimit = 60000;
+  private final double hingeFloorLimit = 61000;
 
   /** Creates a new Hinge. */
   public HingeSubsystem() {

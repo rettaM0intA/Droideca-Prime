@@ -5,6 +5,8 @@
 package frc.robot.commandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.AutoDriveStraight;
+import frc.robot.commands.ChangeIntakePositionsCommand;
 import frc.robot.commands.ClawHingeCommand;
 import frc.robot.commands.VisionAssistedGamepieceLocator;
 import frc.robot.commands.VisionAssistedScoreLineup;
@@ -20,7 +22,10 @@ public class TestCommand extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new VisionAssistedItemPlacement());
 
-    addCommands(new VisionAssistedGamepieceLocator());
+    addCommands(new VisionAssistedGamepieceLocator(90),
+    // new ChangeIntakePositionsCommand(1),
+    // new AutoDriveStraight(0, 0.02, 10),
+    new ClawHingeCommand());
     
   }
 }

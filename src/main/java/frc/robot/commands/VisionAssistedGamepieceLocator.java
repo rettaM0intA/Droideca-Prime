@@ -67,12 +67,12 @@ public class VisionAssistedGamepieceLocator extends CommandBase {
 
     if(shouldRotate){
       if(Math.abs(RobotContainer.driveline.getRobotAngle() - goalRotation) > 2)
-        rotate = (RobotContainer.driveline.getRobotAngle() - goalRotation) * .02;
+        rotate = (RobotContainer.driveline.getRobotAngle() - goalRotation) * .05;
 
-      if(rotate > .05)
-        rotate = .05;
-      else if(rotate < -.05)
-        rotate = -.05;
+      if(rotate > .15)
+        rotate = .15;
+      else if(rotate < -.15)
+        rotate = -.15;
     }else{
       rotate = 0;
     }
@@ -80,14 +80,17 @@ public class VisionAssistedGamepieceLocator extends CommandBase {
     if(RobotContainer.camera.TargetLocated() && 
     RobotContainer.camera.tx.getDouble(-500) > -4 && 
     RobotContainer.camera.tx.getDouble(500) < -2 && 
-    Math.abs(RobotContainer.driveline.getRobotAngle()) < 2){
+    Math.abs(RobotContainer.driveline.getRobotAngle() - goalRotation) < 2){
 
         RobotContainer.driveline.drive(0, 0, 0, false);
-        // rightDistanceCounter += 1;
+        rightDistanceCounter += 1;
 
     }else if(RobotContainer.camera.TargetLocated()){
 
-      RobotContainer.driveline.drive(horizontal, 0, 0, false);
+      if(shouldRotate && (RobotContainer.driveline.getRobotAngle() - goalRotation) < 8)
+        RobotContainer.driveline.drive(horizontal, 0, rotate, false);
+      else
+        RobotContainer.driveline.drive(0, 0, rotate, false);
 
       // if(RobotContainer.camera.tx.getDouble(-500) > 3){
       //   RobotContainer.driveline.drive(0.15, 0, 0, false);
@@ -95,7 +98,7 @@ public class VisionAssistedGamepieceLocator extends CommandBase {
       //   RobotContainer.driveline.drive(-.15, 0, -.0, false);
       // }
     }else{
-      RobotContainer.driveline.drive(0, 0, 0, false);
+      RobotContainer.driveline.drive(0, 0, rotate, false);
     }
 
   }

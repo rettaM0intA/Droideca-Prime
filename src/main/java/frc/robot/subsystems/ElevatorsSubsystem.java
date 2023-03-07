@@ -26,7 +26,7 @@ public class ElevatorsSubsystem extends SubsystemBase {
   private final double highGoalPosition = 69000;
   private final double highSlowdownPosition = 67000;
   private final double shelfGoalPosition = 62000;
-  private final double midGoalPosition = 55000;
+  private final double midGoalPosition = 58000;
   private final double groundLimit = 2000;
 
   /** Creates a new ElevatorsSubsystem. */
